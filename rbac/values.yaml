@@ -1,0 +1,8 @@
+labels:
+  group: com.stakater.platform
+  provider: stakater
+  version: 1.0.0
+  app: app-name
+
+ServiceAccountName: app-name
+ClusterRole: cluster-admin
