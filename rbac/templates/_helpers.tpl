@@ -16,18 +16,22 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 
 {{- define "rbac.labels.selector" -}}
-app: {{ .Values.labels.app }}
-group: {{ .Values.labels.group }}
-provider: {{ .Values.labels.provider }}
-{{- end -}}
-
-{{- define "rbac.labels.stakater" -}}
-{{ template "rbac.labels.selector" . }}
-version: "{{ .Values.labels.version }}"
+app: {{ .Values.appName }}
+release: {{ .Release.Name | quote }}
 {{- end -}}
 
 {{- define "rbac.labels.chart" -}}
 chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-release: {{ .Release.Name | quote }}
 heritage: {{ .Release.Service | quote }}
+{{- end -}}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "serviceAccountName" -}}
+{{- if .Values.serviceAccount.create -}}
+    {{ default (include "rbac.fullname" .) .Values.serviceAccount.name }}
+{{- else -}}
+    {{ default "default" .Values.serviceAccount.name }}
+{{- end -}}
 {{- end -}}

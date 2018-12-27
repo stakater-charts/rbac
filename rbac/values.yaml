@@ -1,8 +1,50 @@
-labels:
-  group: com.stakater.platform
-  provider: stakater
-  version: 1.0.0
-  app: app-name
+rbac:
+  appName: rbac
+  clusterRole:
+    enabled: false
+    name: testclusterrole
+    labels: {}
+    rules:
+    - apiGroups:
+        - ""
+      resources:
+        - secrets
+        - configmaps
+      verbs:
+        - list
+        - get
+        - watch
+  role:
+    enabled: false
+    name: testrole
+    labels: {}
+    rules:
+    - apiGroups:
+        - ""
+      resources:
+        - secrets
+        - configmaps
+      verbs:
+        - list
+        - get
+        - watch
+  clusterRoleBinding:
+    enabled: false
+    name: testclusterrolebinding
+    labels: {}
+    clusterRoleName:
+    serviceAccountName:
+  roleBinding:
+    enabled: false
+    name: testrolebinding
+    labels: {}
+    roleName: testrole
+    serviceAccountName: testaccount
 
-ServiceAccountName: app-name
-ClusterRole: cluster-admin
+serviceAccount:
+  # Specifies whether a ServiceAccount should be created
+  create: false
+  labels: {}
+  # The name of the ServiceAccount to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: testaccount
