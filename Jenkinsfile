@@ -3,4 +3,5 @@
 
 prepareAndUploadCharts {
     charts = [ "rbac" ]
+    isPublic = true
 }
